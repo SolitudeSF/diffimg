@@ -1,6 +1,6 @@
 # Package
 
-version       = "0.1.0"
+version       = "0.1.1"
 author        = "SolitudeSF"
 description   = "Image differentiation tool and library"
 license       = "MIT"
@@ -11,4 +11,4 @@ bin           = @["diffimg"]
 
 # Dependencies
 
-requires "nim >= 0.20.0", "imageman >= 0.4.0", "cligen >= 0.9.31"
+requires "nim >= 0.20.0", "imageman >= 0.5.1", "cligen >= 0.9.37"

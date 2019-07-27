@@ -6,17 +6,17 @@ func absDiff(a, b: uint8): uint8 {.inline.} =
   else:
     b - a
 
-func getDiffRatio*(a, b: Image): float =
+func getDiffRatio*[T: Color](a, b: Image[T]): float =
   var sum = 0'u64
   for p in 0..a.data.high:
-    for c in 0..Color.high:
+    for c in 0..T.high:
       sum += absDiff(a[p][c], b[p][c])
-  sum.float / (255 * a.data.len * Color.len).float
+  sum.float / (255 * a.data.len * T.len).float
 
-func genDiffImage*(a, b: Image): Image =
-  result = initImage(a.w, a.h)
+func genDiffImage*[T: Color](a, b: Image[T]): Image[T] =
+  result = initImage[T](a.w, a.h)
   for p in 0..result.data.high:
-    for c in 0..Color.high:
+    for c in 0..T.high:
       result[p][c] = absDiff(a[p][c], b[p][c])
 
 when isMainModule:
@@ -30,8 +30,8 @@ when isMainModule:
       quit 1
 
     let
-      img1 = loadImage images[0]
-      img2 = loadImage images[1]
+      img1 = loadImage[ColorRGBA] images[0]
+      img2 = loadImage[ColorRGBA] images[1]
 
     if img1.w != img2.w or img1.h != img2.h:
       stderr.write "Images must have the same dimensions"
